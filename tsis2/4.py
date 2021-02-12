@@ -6,5 +6,6 @@ for i in gain:
     alt+=i
     if (alt>mx):
         mx = alt
+        
 print(mx)   
         
