@@ -6,7 +6,7 @@ for i in range(a):
 for i in range(b):
     s2.add(int(input()))
 print(len(s1&s2))
-print(*sorted(s2&s2))   
+print(*sorted(s1&s2))   
 
 print(len(s1-s2))
 print(*sorted(s1-s2))
