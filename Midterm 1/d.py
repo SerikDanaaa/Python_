@@ -1,0 +1,3 @@
+a = dict()
+
+txt = input()
