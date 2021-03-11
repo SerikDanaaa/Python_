@@ -1,3 +1,4 @@
+import re
 """
 def f(arg1,arg2,arg3 = "Hello"):
     print(arg1,arg2,arg3)
@@ -34,9 +35,21 @@ txt = "My name is John, and I am {}"
 print(txt.format(age))
 """
 
+"""
 def myfunc(n):
   return abs(n - 50)
 
 thislist = [100, 50, 65, 82, 23]
 thislist.sort(key = myfunc)
 print(thislist)
+"""
+
+n = input()
+pattern = re.search(r'(01[13-15]|02[10-16])',n)
+
+if pattern:
+  print("yes")
+else:
+  print("no")  
+
+
