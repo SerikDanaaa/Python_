@@ -6,9 +6,10 @@ for i in range(1,len(txt)):
     if len(txt[i-1]) > len(txt[i]):
         ok = False
         break
-
 if ok:
-    print("Yes",f1.write("Yes"))
+    f1.write("Yes")
+    print("Yes")
 else:
-    print("No", f1.write("No"))
+    f1.write("No")
+    print("No")
 

@@ -21,4 +21,4 @@ def bfs(visited,graph,node):
                 queue.append(i)
                 visited.append(i)
 
-bfs(visited,graph,'A')
+bfs(visited,graph,'B')

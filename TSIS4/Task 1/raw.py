@@ -1,26 +1,35 @@
 import re
+import csv
 
-given_filename = "../raw.txt"
-input_file = open(given_filename, mode='r', encoding='utf_8')
-myfile = input_file.read()
+with open('../raw.txt', 'r', encoding = 'utf-8') as f:
+    txt = f.read()
 
-items_cnt = re.findall(r"\d+\.\n", myfile)
-item_names = re.findall(r"(.*\n)\d+\,\d+ x", myfile)
-cout_cnt = re.findall(r"\d+\,\d+ ", myfile)
-item_price = re.findall(r"(?<=\d x ).*.", myfile)
-item_total_price = re.findall(r"(.+\,\d+\n)Стоимость", myfile)
 
-print("1. Name of the company:", *re.findall(r"(?<=Филиал ).*.", myfile), end = '\n')
+compnamepat = re.findall(r'(?<=ТОО )[\w]+', txt)
+compBINpat = re.findall(r'(?<=БИН )[\d]{12}', txt)
 
-print("2. BIN number:", *re.findall(r"(?<=БИН ).*.", myfile), end = '\n')
+cntpat = re.findall(r'\d+\.\n', txt)
+productsnamespat = re.findall(r'(.*)\n\d+,\d+ x \d+ ?\d+,\d+', txt)
+amountofproduct = re.findall(r'(\d+),\d+ x \d+ ?\d+,\d+', txt)
+priceofproduct = re.findall(r'\d+,\d+ x (\d+ ?\d+,\d+)', txt)
+totalpriceofproducts = re.findall(r'Стоимость\n(\d+ ?\d+,\d+)', txt)
 
-print("  For each item:")
-for i in range(len(items_cnt)):
-    print("    1. Title ----", item_names[i], end = '')
-    print("    2. Cout ----", cout_cnt[i])
-    print("    3. Unit price ----", item_price[i])
-    print("    4. Total price ----", item_total_price[i])
+datepat = re.findall(r'Время: (\d{2}.\d{2}.\d{4} \d{2}:\d{2}:\d{2})', txt)
+adresspat = re.findall(r'г\. (.*)', txt)
 
-print("4. Date ----", *re.findall(r"(?<=Время: ).*.", myfile), end = '\n\n')
+print('Name of the company:', *compnamepat)
+print('BIN of the company:', *compBINpat)
+print('List of bought items:')
 
-print("5. Address ----", *re.findall(r"(.+\n)Оператор", myfile), end = '')
+items = [['Компания', 'БИН', "Название", "Количество", "Цена за единицу", "Сумма", "Дата", "Адрес"]]
+
+for i in range(len(cntpat)):
+    items.append((compnamepat[0], compBINpat[0], productsnamespat[i], amountofproduct[i], priceofproduct[i], totalpriceofproducts[i], datepat[0], adresspat[0]))
+    print('Title:', productsnamespat[i])
+    print('Count:', amountofproduct[i])
+    print('Unit price:', priceofproduct[i])
+    print('Total price', totalpriceofproducts[i])
+
+print('Time:', *datepat)
+print('Adress:', *adresspat)
+
