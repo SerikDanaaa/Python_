@@ -1,35 +1,26 @@
 import re
-import csv
 
-with open('../raw.txt', 'r', encoding = 'utf-8') as f:
-    txt = f.read()
+f = open(r'C:\Users\LEGION\Documents\pp2\Python_\TSIS4\raw.txt', 'r',encoding='utf8')
+data = f.read()
 
+name = re.search(r'Филиал\sТОО\s\w+\s\w+', data)
+bin = re.search(r'\d{12}', data)
+items = re.findall(r'\d+\.\n(.*)', data)
+cnt = re.findall(r'(\d),\d{3}', data)
+price = re.findall(r'x\s([\d\s]+,\d+)', data)
+total = re.findall(r'Стоимость\n([\d\s]+,\d+)', data)
+address = re.search(r'г\.\s[\w\-]+\,\w+\,\s[\w+\s]+\,\d+\,\s\w+\-\d', data)
+date = re.search(r'\d{2}\.\d{2}\.\d{4}\s\d{2}\:\d{2}\:\d{2}', data)
 
-compnamepat = re.findall(r'(?<=ТОО )[\w]+', txt)
-compBINpat = re.findall(r'(?<=БИН )[\d]{12}', txt)
+print("1. Name of the company: " + name.group())
+print("2. BIN number: " + bin.group())
 
-cntpat = re.findall(r'\d+\.\n', txt)
-productsnamespat = re.findall(r'(.*)\n\d+,\d+ x \d+ ?\d+,\d+', txt)
-amountofproduct = re.findall(r'(\d+),\d+ x \d+ ?\d+,\d+', txt)
-priceofproduct = re.findall(r'\d+,\d+ x (\d+ ?\d+,\d+)', txt)
-totalpriceofproducts = re.findall(r'Стоимость\n(\d+ ?\d+,\d+)', txt)
-
-datepat = re.findall(r'Время: (\d{2}.\d{2}.\d{4} \d{2}:\d{2}:\d{2})', txt)
-adresspat = re.findall(r'г\. (.*)', txt)
-
-print('Name of the company:', *compnamepat)
-print('BIN of the company:', *compBINpat)
-print('List of bought items:')
-
-items = [['Компания', 'БИН', "Название", "Количество", "Цена за единицу", "Сумма", "Дата", "Адрес"]]
-
-for i in range(len(cntpat)):
-    items.append((compnamepat[0], compBINpat[0], productsnamespat[i], amountofproduct[i], priceofproduct[i], totalpriceofproducts[i], datepat[0], adresspat[0]))
-    print('Title:', productsnamespat[i])
-    print('Count:', amountofproduct[i])
-    print('Unit price:', priceofproduct[i])
-    print('Total price', totalpriceofproducts[i])
-
-print('Time:', *datepat)
-print('Adress:', *adresspat)
-
+for i in range(len(items)):
+    
+    print("1. Title: " + items[i])
+    print("2. Count: " + cnt[i])
+    print("3. Unit price: " + price[i])
+    print("4. Total price: " + total[i])
+    
+print("4. Date: " + date.group())
+print("5. Address: " + address.group())

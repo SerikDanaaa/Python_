@@ -1,2 +1,2 @@
-txt = open('test.txt')
-txt.read()
+with open('test.txt','r') as f:
+    print(f.read())
