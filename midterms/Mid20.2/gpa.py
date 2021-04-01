@@ -6,7 +6,8 @@ while n:
         names[name] = [1,0]
     else:
         names[name][0] += 1
-        names[name][1] += gpa 
+        names[name][1] += float(gpa) 
+    n -= 1    
 for name in sorted(names):
     avg_gpa = names[name][1] / names[name][0]           
     print(name, ": ", f'{avg_gpa:.3f}',sep='')

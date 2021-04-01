@@ -11,4 +11,4 @@ while n:
     a.update({name : list1})
     n -= 1
 for i in a:
-    print(i,a[i])        
+    print(i,*a[i])        
