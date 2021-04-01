@@ -28,7 +28,7 @@ while not done:
     #THE RECTANGLE
     pygame.draw.rect(screen,BLACK,(58,10,884,522),3)
 
-    #ITS LINES INIT
+    #LINES INIT
     for y in range(0, 522, 58):
         pygame.draw.line(screen, BLACK, [58, 39 + y], [942,39 + y], 1)
     for y in range(0, 884, 136):
