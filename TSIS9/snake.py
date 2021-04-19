@@ -89,9 +89,10 @@ class MAIN:
         self.snake1.Draw_Snake1()
         self.score()
         self.score1()
-        if len(self.snake.body) - 3 > 1 or len(self.snake1.body) - 3 > 1 :
-            self.draw_walls()
-        if len(self.snake.body) - 3 > 3 or len(self.snake1.body) - 3 > 3 :
+        if len(self.snake.body) - 3 == 1 or len(self.snake1.body) - 3 == 1 :
+            self.draw_walls1()
+        self.pos.clear()    
+        if len(self.snake.body) - 3 == 3 or len(self.snake1.body) - 3 == 3 :
             self.draw_walls2()    
 
     def check_collision(self):
@@ -114,6 +115,7 @@ class MAIN:
         if not 0 <= self.snake1.body[0].y < cell_number:    
             self.game_over()
         
+        
         for block in self.snake.body[1:]:
             if block == self.snake.body[0]:
                 self.game_over()        
@@ -121,7 +123,7 @@ class MAIN:
         for block in self.snake1.body[1:]:
             if block == self.snake1.body[0]:
                 self.game_over()  
-
+        
         for block in self.pos:
             if block == self.snake.body[0]:
                 self.game_over()        
@@ -165,20 +167,24 @@ class MAIN:
         score_rect = score_surface.get_rect(center = (score_pos_x1,score_pos_y1))
         screen.blit(score_surface,score_rect)    
 
-    def draw_walls(self):
+    def draw_walls1(self):
         #1 level
-        for row in range(5):
-            self.pos.append(Vector2(row,10))
-            wall_rect = pygame.Rect(row * cell_size,cell_size * 10,cell_size,cell_size)
-            pygame.draw.rect(screen,(BLACK),wall_rect)
-        for col in range(8):
-            self.pos.append(Vector2(10,col))
-            wall_rect = pygame.Rect(10* cell_size,cell_size * col,cell_size,cell_size) 
-            pygame.draw.rect(screen,(BLACK),wall_rect)    
-        for row in range(10,20):
+        for row in range(6,19):
             self.pos.append(Vector2(row,20))
             wall_rect = pygame.Rect(row * cell_size,cell_size * 20,cell_size,cell_size)
+            pygame.draw.rect(screen,(BLACK),wall_rect)
+        for col in range(4,18):
+            self.pos.append(Vector2(20,col))
+            wall_rect = pygame.Rect(20 * cell_size,cell_size * col,cell_size,cell_size) 
             pygame.draw.rect(screen,(BLACK),wall_rect)    
+        for row in range(4,18):
+            self.pos.append(Vector2(row,4))
+            wall_rect = pygame.Rect(row * cell_size,cell_size * 4,cell_size,cell_size)
+            pygame.draw.rect(screen,(BLACK),wall_rect)  
+        for col in range(7,18):
+            self.pos.append(Vector2(4,col))
+            wall_rect = pygame.Rect(4 * cell_size,cell_size * col,cell_size,cell_size) 
+            pygame.draw.rect(screen,(BLACK),wall_rect)        
 
     def draw_walls2(self):
         #2 level

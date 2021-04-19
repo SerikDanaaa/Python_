@@ -64,3 +64,5 @@ def main():
 
 
 main()
+
+if event.key == pygame.K_y and save:
